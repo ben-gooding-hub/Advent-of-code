@@ -1,10 +1,6 @@
-# data = """3   4
-# 4   3
-# 2   5
-# 1   3
-# 3   9
-# 3   3""".splitlines()
-f = open("data/1", "r")
+
+f = open("example-data/1", "r")
+# f = open("data/1", "r")
 data = f.read().split("\n")
 print(data)
 f.close()
