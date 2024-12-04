@@ -33,6 +33,5 @@ for captured in res:
     res2 = re.findall(r"mul\(\d+,\d+\)", captured)
     for captured2 in res2:
         total += mul(captured2)
-data.split("don't()")
 
 print(total)
