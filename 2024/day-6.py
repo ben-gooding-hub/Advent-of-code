@@ -1,6 +1,5 @@
-from typing import Optional
-
 from utils.FetchData import fetchData
+from utils.twoDimGridTools import isInBounds, getChar
 from time import time
 
 useTestData = False
@@ -18,17 +17,9 @@ start = findStart(data)
 yMax = len(data)
 xMax = len(data[0])
 
-def isInBounds(position: tuple[int, int]) -> bool:
-    return 0 <= position[0] < xMax and 0 <= position[1] < yMax
-
-
-def getChar(x: int, y: int, data: list[str]) -> Optional[str]:
-    if not isInBounds((x, y)):
-        return None
-    return data[y][x]
 
 def isHash(x: int, y: int, data: list[str]) -> bool:
-    return getChar(x, y, data) == "#"
+    return getChar(x, y, data, (xMax, yMax)) == "#"
 
 def getNextDirection(currentDirection: tuple[int, int]) -> tuple[int, int]:
     directions = [
