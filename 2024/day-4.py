@@ -1,6 +1,6 @@
 from utils.FetchData import fetchData
 from typing import Optional
-from utils.twoDimGridTools import getChar
+from utils.TwoDimGridTools import getChar
 
 useTestData = False
 data = fetchData(4, 2024, useTestData)

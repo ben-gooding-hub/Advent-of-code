@@ -1,5 +1,5 @@
 from utils.FetchData import fetchData
-from utils.twoDimGridTools import isInBounds, getChar
+from utils.TwoDimGridTools import isInBounds, getChar
 from time import time
 
 useTestData = False

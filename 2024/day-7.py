@@ -1,6 +1,7 @@
 import re
 
 from utils.FetchData import fetchData
+from utils.Timer import timeMethod
 
 useTestData = False
 data = fetchData(7, 2024, useTestData)
@@ -20,31 +21,33 @@ def recursiveOperateOnNext(lastTotal: int, currentList: list[int], totalToFind: 
     if lastTotal > totalToFind:
         return None, False
 
-    # Handle base case
+    # Handle final case
     if len(currentList) == 0:
         if lastTotal == totalToFind:
             return totalToFind, True
         else:
             return None, False
 
-    # Handle nth step
+    # Handle n -> n+1 step
     for operator in operators:
         operatorAttempt = performOperation(operator, lastTotal, currentList[0])
         (totalFound, solutionWasFound) = recursiveOperateOnNext(operatorAttempt, currentList[1:], totalToFind, operators)
         if solutionWasFound:
             return (totalFound, solutionWasFound)
 
-    # No more possible solutions
+    # No more possible solutions exit
     return None, False
 
-def sumValidCalibrations(data: list[tuple[int, list[int]]], operators: list[str]) -> int:
+def sumValidCalibrations(data: list[tuple[int, list[int]]], operators: list[str]):
     total = 0
     for (totalToFind, values) in data:
         (totalFound, solutionWasFound) = recursiveOperateOnNext(values[0], values[1:], totalToFind, operators)
         if solutionWasFound:
             total += totalFound
-    return total
+    print(total)
 
 
-print(sumValidCalibrations(parsedData, ["+", "*"]))
-print(sumValidCalibrations(parsedData, ["+", "*", "||"]))
+timeMethod(lambda: sumValidCalibrations(parsedData, ["+", "*"]))
+
+timeMethod(lambda: sumValidCalibrations(parsedData, ["+", "*", "||"]))
+
