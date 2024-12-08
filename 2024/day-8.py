@@ -1,4 +1,5 @@
 from utils.FetchData import fetchData
+from utils.TupleTools import subtractTuples, addTuples
 from utils.TwoDimGridTools import isInBounds
 
 useTestData = False
@@ -12,11 +13,10 @@ def addCoordsToNodeTracker(nodeTracker: dict[str, list[tuple[int, int]]], newCha
         nodeList.append(coords)
 
 def calculateAntiNodesForPair(first: tuple[int, int], second: tuple[int, int], xMax: int, yMax: int) -> set[tuple[int, int]]:
-    xDiff = first[0] - second[0]
-    yDiff = first[1] - second[1]
+    vectorDiff = subtractTuples(first, second)
+    nodeOne = addTuples(first, vectorDiff)
+    nodeTwo = subtractTuples(second, vectorDiff)
     nodeResult = set()
-    nodeOne = (first[0] + xDiff, first[1] + yDiff)
-    nodeTwo = (second[0] - xDiff, second[1] - yDiff)
     if isInBounds(nodeOne,(xMax, yMax)):
         nodeResult.add(nodeOne)
     if isInBounds(nodeTwo,(xMax, yMax)):
@@ -24,17 +24,18 @@ def calculateAntiNodesForPair(first: tuple[int, int], second: tuple[int, int], x
     return nodeResult
 
 def calculateAntiNodesForPairRepeated(first: tuple[int, int], second: tuple[int, int], xMax: int, yMax: int) -> set[tuple[int, int]]:
-    xDiff = first[0] - second[0]
-    yDiff = first[1] - second[1]
+    vectorDiff = subtractTuples(first, second)
     nodeResult = set()
+
     potentialAntiNode = first
     while isInBounds(potentialAntiNode,(xMax, yMax)):
         nodeResult.add(potentialAntiNode)
-        potentialAntiNode = potentialAntiNode[0] + xDiff, potentialAntiNode[1] + yDiff
+        potentialAntiNode = addTuples(potentialAntiNode, vectorDiff)
+
     potentialAntiNode = first
     while isInBounds(potentialAntiNode,(xMax, yMax)):
         nodeResult.add(potentialAntiNode)
-        potentialAntiNode = potentialAntiNode[0] - xDiff, potentialAntiNode[1] - yDiff
+        potentialAntiNode = subtractTuples(potentialAntiNode, vectorDiff)
 
     return nodeResult
 
