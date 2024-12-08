@@ -48,18 +48,24 @@ for y, line in enumerate(data):
             continue
         addCoordsToNodeTracker(nodeTracker, char, (x, y))
 
+def compareAllNodePairs(performCompare):
+    for nodeList in nodeTracker.values():
+        for nodeKey, node in enumerate(nodeList):
+            for existingNode in nodeList[0:nodeKey]:
+                performCompare(node, existingNode)
+
+
 antiNodes = set[(int, int)]()
-for nodeList in nodeTracker.values():
-    for nodeKey, node in enumerate(nodeList):
-        for existingNode in nodeList[0:nodeKey]:
-            for antiNode in calculateAntiNodesForPair(node, existingNode, xMax, yMax):
-                antiNodes.add(antiNode)
+compareAllNodePairs(lambda first, second:
+    [antiNodes.add(antiNode) for antiNode in calculateAntiNodesForPair(first, second, xMax, yMax)]
+)
 print(len(antiNodes))
 
 antiNodes = set[(int, int)]()
-for nodeList in nodeTracker.values():
-    for nodeKey, node in enumerate(nodeList):
-        for existingNode in nodeList[0:nodeKey]:
-            for antiNode in calculateAntiNodesForPairRepeated(node, existingNode, xMax, yMax):
-                antiNodes.add(antiNode)
+compareAllNodePairs(lambda first, second:
+    [antiNodes.add(antiNode) for antiNode in calculateAntiNodesForPairRepeated(first, second, xMax, yMax)]
+)
 print(len(antiNodes))
+
+
+
