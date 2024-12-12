@@ -1,6 +1,6 @@
 from utils.FetchData import fetchData
 from typing import Optional
-from utils.TwoDimGridTools import getChar
+from utils.TwoDimGridTools import getCharTuple
 
 useTestData = False
 data = fetchData(4, 2024, useTestData)
@@ -9,7 +9,7 @@ yMax = len(data)
 xMax = len(data[0])
 
 def getCharAt(x: int, y: int) -> Optional[str]:
-    return getChar(x, y, data,(xMax, yMax))
+    return getCharTuple((x, y), data, (xMax, yMax))
 
 def findPotentialDirectionOfSecondLetter(x: int, y: int, secondLetter: str) -> list[tuple[int, int]]:
     potentialDirection: list[tuple[int, int]] = []

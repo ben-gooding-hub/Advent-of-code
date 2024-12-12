@@ -1,5 +1,5 @@
 from utils.FetchData import fetchData
-from utils.TwoDimGridTools import isInBounds, getChar
+from utils.TwoDimGridTools import isInBounds, getCharTuple
 from time import time
 
 useTestData = False
@@ -19,7 +19,7 @@ xMax = len(data[0])
 
 
 def isHash(x: int, y: int, data: list[str]) -> bool:
-    return getChar(x, y, data, (xMax, yMax)) == "#"
+    return getCharTuple((x, y), data, (xMax, yMax)) == "#"
 
 def getNextDirection(currentDirection: tuple[int, int]) -> tuple[int, int]:
     directions = [
